@@ -23,7 +23,7 @@ export default function Home() {
         const cid = process.env.NEXT_PUBLIC_ORDERCLOUD_CLIENT_ID;
         const oidcId = process.env.NEXT_PUBLIC_ORDERCLOUD_OPEN_ID_CONNECT_ID;
         let openidurl = `${apiUrl}/ocrplogin?id=${oidcId}&cid=${cid}`;
-        if(process.env.NEXT_PUBLIC_IDENTITY_PROVIDER === "azure") {
+        if (process.env.NEXT_PUBLIC_IDENTITY_PROVIDER === "azure") {
           // This forwards response_mode=form_post to Azure's Authorization endpoint so that
           // the request is sent as a POST request instead of a GET request
           // which doesn't have the same character limits as the default GET request
@@ -93,7 +93,9 @@ export default function Home() {
             </pre>
           ) : (
             <i>
-              No refresh token found, to enable this make sure that your OrderCloud API Client has a RefreshTokenDuration set to a value greater than zero.
+              No refresh token found, to enable this make sure that your
+              OrderCloud API Client has a RefreshTokenDuration set to a value
+              greater than zero.
             </i>
           )}
         </div>
@@ -107,9 +109,9 @@ export default function Home() {
             </pre>
           ) : (
             <i>
-              No IDP token found, to enable this make sure that the
-              &quot;Identity Provider Access Token&quot; claim is enabled on
-              your user flow application claims
+              No IDP token found.
+              {process.env.NEXT_PUBLIC_IDENTITY_PROVIDER === "azure" &&
+                " This can be enabled by including the the Azure Application (client) ID in the OpenIDConnect.AdditionalIdpScopes array in OrderCloud"}
             </i>
           )}
         </div>
